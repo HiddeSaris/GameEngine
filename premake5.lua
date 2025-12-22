@@ -9,6 +9,13 @@ workspace "GameEngine"
 		"Dist"
 	}
 
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+IncludeDir = {}
+IncludeDir["GLFW"] = "GameEngine/vendor/GLFW/include"
+
+include "GameEngine/vendor/GLFW"
+
 project "GameEngine"
 	location "GameEngine"
 	kind "SharedLib"
@@ -33,8 +40,15 @@ project "GameEngine"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src"
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
