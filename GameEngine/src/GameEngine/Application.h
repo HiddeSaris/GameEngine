@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.h"
+#include "GameEngine/Events/Event.h"
 
 namespace GameEngine {
 	class GAMEENGINE_API Application
