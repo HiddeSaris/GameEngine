@@ -19,12 +19,22 @@
     <ClInclude Include="src\GameEngine\EntryPoint.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Events\ApplicationEvent.h">
+      <Filter>GameEngine\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Events\Event.h">
+      <Filter>GameEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Events\KeyEvent.h">
+      <Filter>GameEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Events\MouseEvent.h">
       <Filter>GameEngine\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Log.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\gepch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -33,5 +43,6 @@
     <ClCompile Include="src\GameEngine\Log.cpp">
       <Filter>GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\gepch.cpp" />
   </ItemGroup>
 </Project>

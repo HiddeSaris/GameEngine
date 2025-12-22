@@ -16,8 +16,10 @@ project "GameEngine"
 
 	targetdir "bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
 	objdir    "bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
-
-
+	
+	pchheader "gepch.h"
+	pchsource "GameEngine/src/gepch.cpp"
+	
 	buildoptions
 	{
 		"/utf-8"
