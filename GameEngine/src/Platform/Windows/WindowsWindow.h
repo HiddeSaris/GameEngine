@@ -37,5 +37,4 @@ namespace GameEngine {
 
 		WindowData m_Data;
 	};
-
 }
