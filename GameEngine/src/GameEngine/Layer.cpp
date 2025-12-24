@@ -6,9 +6,11 @@ namespace GameEngine {
 	Layer::Layer(const std::string& debugname)
 		: m_DebugName(debugname) {}
 
-	Layer::~Layer()
-	{
+	Layer::~Layer() = default;
 
-	}
+	void Layer::OnAttach() {}
+	void Layer::OnDetach() {}
+	void Layer::OnUpdate() {}
+	void Layer::OnEvent(Event& event) {}
 
 }
