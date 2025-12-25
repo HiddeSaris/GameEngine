@@ -46,6 +46,12 @@
     <ClInclude Include="src\GameEngine\ImGui\ImGuiLayer.h">
       <Filter>GameEngine\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Input.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\KeyCodes.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Layer.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
@@ -53,6 +59,9 @@
       <Filter>GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Log.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\MouseButtonCodes.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Window.h">
@@ -63,6 +72,9 @@
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3_loader.h">
       <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
@@ -87,6 +99,9 @@
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
       <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
