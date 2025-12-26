@@ -1,14 +1,6 @@
 #pragma once
 
-#ifdef GE_PLATFORM_WINDOWS
-	#ifdef GE_BUILD_DLL
-		#define GAMEENGINE_API __declspec(dllexport)
-	#else
-		#define GAMEENGINE_API __declspec(dllimport)
-	#endif
-#else
-	#error GameEngine only supports Windows!
-#endif
+#define GAMEENGINE_API __declspec(dllexport)
 
 #ifdef GE_DEBUG
 	#define GE_ENABLE_ASSERTS

@@ -1,5 +1,7 @@
 #include <GameEngine.h>
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public GameEngine::Layer
 {
 public:
@@ -12,6 +14,13 @@ public:
 
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_TAB))
 			GE_INFO("Tab Key is being pressed!");
+	}
+
+	virtual void OnImGuiRender()
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World!");
+		ImGui::End();
 	}
 
 	void OnEvent(GameEngine::Event& event) override
@@ -30,7 +39,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new GameEngine::ImGuiLayer());
 	}
 
 	~Sandbox()

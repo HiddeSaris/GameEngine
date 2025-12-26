@@ -11,6 +11,7 @@ namespace GameEngine {
 	void Layer::OnAttach() {}
 	void Layer::OnDetach() {}
 	void Layer::OnUpdate() {}
+	void Layer::OnImGuiRender() {}
 	void Layer::OnEvent(Event& event) {}
 
 }

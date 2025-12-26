@@ -85,6 +85,9 @@
     <ClCompile Include="src\GameEngine\Application.cpp">
       <Filter>GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\ImGui\ImGuiBuild.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameEngine\ImGui\ImGuiLayer.cpp">
       <Filter>GameEngine\ImGui</Filter>
     </ClCompile>

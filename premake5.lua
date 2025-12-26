@@ -1,7 +1,6 @@
 workspace "GameEngine"
 	architecture "x64"
 	startproject "Sandbox"
-	startproject "Sandbox"
 
 	configurations
 	{
@@ -27,9 +26,10 @@ group ""
 
 project "GameEngine"
 	location "GameEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir "bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
 	objdir    "bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
@@ -67,20 +67,15 @@ project "GameEngine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
 		{
 			"GE_PLATFORM_WINDOWS",
-			"GE_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands
-		{
-			"{COPYFILE} %{cfg.buildtarget.relpath} \"../bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/Sandbox/\""
-		}
+		
 
 	filter "configurations:Debug"
 		defines "GE_DEBUG"
@@ -102,7 +97,8 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir "bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
 	objdir    "bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"
@@ -122,6 +118,7 @@ project "Sandbox"
 	{
 		"GameEngine/vendor/spdlog/include",
 		"GameEngine/src",
+		"GameEngine/vendor",
 		"%{IncludeDir.glm}",
 	}
 
@@ -131,7 +128,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
