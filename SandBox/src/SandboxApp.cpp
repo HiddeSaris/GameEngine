@@ -18,9 +18,9 @@ public:
 
 	virtual void OnImGuiRender()
 	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hello World!");
-		ImGui::End();
+		//ImGui::Begin("Test");
+		//ImGui::Text("Hello World!");
+		//ImGui::End();
 	}
 
 	void OnEvent(GameEngine::Event& event) override

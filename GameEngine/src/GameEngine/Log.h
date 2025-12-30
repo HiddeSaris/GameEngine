@@ -7,7 +7,7 @@
 
 #pragma warning(disable:4251)
 namespace GameEngine {
-	class GAMEENGINE_API Log
+	class Log
 	{
 	public:
 		static void Init();

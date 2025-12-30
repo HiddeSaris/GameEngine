@@ -19,7 +19,7 @@ namespace GameEngine {
 			: Title(title), Width(width), Height(height) {}
 	};
 
-	class GAMEENGINE_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

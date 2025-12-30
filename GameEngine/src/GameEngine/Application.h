@@ -9,8 +9,10 @@
 
 #include "GameEngine/ImGui/ImGuiLayer.h"
 
+#include "GameEngine/Renderer/Shader.h"
+
 namespace GameEngine {
-	class GAMEENGINE_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -34,10 +36,12 @@ namespace GameEngine {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
+
 		static Application* s_Instance;
 	};
 
 	// To be defined in client
 	Application* CreateApplication();
-
 }

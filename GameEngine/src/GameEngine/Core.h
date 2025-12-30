@@ -1,6 +1,6 @@
 #pragma once
 
-#define GAMEENGINE_API __declspec(dllexport)
+#define GAMEENGINE_API
 
 #ifdef GE_DEBUG
 	#define GE_ENABLE_ASSERTS
