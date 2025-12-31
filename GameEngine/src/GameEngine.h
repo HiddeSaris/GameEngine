@@ -12,6 +12,8 @@
 
 #include "GameEngine/ImGui/ImGuiLayer.h"
 
+#include "GameEngine/Renderer/RenderCommand.h"
+
 // -----Entry Point-----------------
 #include "GameEngine/EntryPoint.h"
 // ---------------------------------

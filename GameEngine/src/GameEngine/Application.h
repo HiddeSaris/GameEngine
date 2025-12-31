@@ -13,6 +13,8 @@
 #include "GameEngine/Renderer/Buffer.h"
 #include "GameEngine/Renderer/VertexArray.h"
 
+#include "GameEngine/Renderer/OrthographicCamera.h"
+
 namespace GameEngine {
 
 	class Application
@@ -33,6 +35,7 @@ namespace GameEngine {
 		inline static Application& Get() { return *s_Instance; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		virtual void Step() {}
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
@@ -44,6 +47,8 @@ namespace GameEngine {
 
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVA;
+	protected:
+		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};

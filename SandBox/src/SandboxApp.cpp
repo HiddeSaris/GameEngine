@@ -1,6 +1,6 @@
 #include <GameEngine.h>
 
-#include "imgui/imgui.h"
+//#include "imgui/imgui.h"
 
 class ExampleLayer : public GameEngine::Layer
 {
@@ -28,7 +28,7 @@ public:
 		if (event.GetEventType() == GameEngine::EventType::KeyPressed)
 		{
 			GameEngine::KeyPressedEvent& e = (GameEngine::KeyPressedEvent&)event;
-			GE_TRACE("{0}", (char)e.GetKeyCode());
+			//GE_TRACE("{0}", (char)e.GetKeyCode());
 		}
 	}
 };
@@ -43,6 +43,32 @@ public:
 
 	~Sandbox()
 	{
+
+	}
+
+	void Step()
+	{
+		GE_TRACE("step!");
+
+		if (GameEngine::Input::IsKeyPressed(GE_KEY_W)) {
+			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3(0.0f, 0.01f, 0.0f));
+		}
+		if (GameEngine::Input::IsKeyPressed(GE_KEY_S)) {
+			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3(0.0f, -0.01f, 0.0f));
+		}
+		if (GameEngine::Input::IsKeyPressed(GE_KEY_A)) {
+			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3(-0.01f, 0.0f, 0.0f));
+		}
+		if (GameEngine::Input::IsKeyPressed(GE_KEY_D)) {
+			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3(0.01f, 0.0f, 0.0f));
+		}
+
+		if (GameEngine::Input::IsKeyPressed(GE_KEY_E)) {
+			m_Camera.SetRotation(m_Camera.GetRotation() + 0.4f);
+		}
+		if (GameEngine::Input::IsKeyPressed(GE_KEY_Q)) {
+			m_Camera.SetRotation(m_Camera.GetRotation() - 0.4f);
+		}
 
 	}
 };
