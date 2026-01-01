@@ -34,17 +34,18 @@ public:
 
 		m_SquareVA.reset(GameEngine::VertexArray::Create());
 
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		GameEngine::Ref<GameEngine::VertexBuffer> squareVB;
 		squareVB.reset(GameEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
-			{ GameEngine::ShaderDataType::Float3, "a_Position" }
+			{ GameEngine::ShaderDataType::Float3, "a_Position" },
+			{ GameEngine::ShaderDataType::Float2, "a_TexCoord" }
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
@@ -124,6 +125,47 @@ public:
 		)";
 
 		m_flatColorShader.reset(GameEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+	
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			uniform sampler2D u_Texture;
+
+			in vec2 v_TexCoord;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(GameEngine::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+
+		m_Texture = GameEngine::Texture2D::Create("assets/textures/picture.png");
+
+		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+
 	}
 
 	void OnUpdate(GameEngine::Timestep dt) override
@@ -166,8 +208,10 @@ public:
 			}
 		}
 		
+		m_Texture->Bind();
+		GameEngine::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		
-		GameEngine::Renderer::Submit(m_Shader, m_VertexArray);
+		//GameEngine::Renderer::Submit(m_Shader, m_VertexArray);
 
 		GameEngine::Renderer::EndScene();
 	}
@@ -187,8 +231,10 @@ private:
 	GameEngine::Ref<GameEngine::Shader> m_Shader;
 	GameEngine::Ref<GameEngine::VertexArray> m_VertexArray;
 
-	GameEngine::Ref<GameEngine::Shader> m_flatColorShader;
+	GameEngine::Ref<GameEngine::Shader> m_flatColorShader, m_TextureShader;
 	GameEngine::Ref<GameEngine::VertexArray> m_SquareVA;
+
+	GameEngine::Ref<GameEngine::Texture2D> m_Texture;
 
 	GameEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
