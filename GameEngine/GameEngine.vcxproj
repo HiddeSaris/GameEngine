@@ -146,6 +146,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Application.h" />
     <ClInclude Include="src\GameEngine\Core.h" />
@@ -599,6 +600,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\GameEngine\Application.cpp" />
     <ClCompile Include="src\GameEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\GameEngine\ImGui\ImGuiLayer.cpp" />
