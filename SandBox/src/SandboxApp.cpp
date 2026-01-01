@@ -90,7 +90,7 @@ public:
 		)";
 
 
-		m_Shader.reset(GameEngine::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = GameEngine::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -124,15 +124,15 @@ public:
 			}
 		)";
 
-		m_flatColorShader.reset(GameEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		m_flatColorShader = GameEngine::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
-		m_TextureShader.reset(GameEngine::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = GameEngine::Texture2D::Create("assets/textures/picture.png");
 		m_TransparentTexture = GameEngine::Texture2D::Create("assets/textures/transparent.png");
 
-		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 
 	}
 
@@ -176,10 +176,12 @@ public:
 			}
 		}
 		
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		GameEngine::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		GameEngine::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		m_TransparentTexture->Bind();
-		GameEngine::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		GameEngine::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		//GameEngine::Renderer::Submit(m_Shader, m_VertexArray);
 
@@ -198,10 +200,11 @@ public:
 		
 	}
 private:
+	GameEngine::ShaderLibrary m_ShaderLibrary;
 	GameEngine::Ref<GameEngine::Shader> m_Shader;
 	GameEngine::Ref<GameEngine::VertexArray> m_VertexArray;
 
-	GameEngine::Ref<GameEngine::Shader> m_flatColorShader, m_TextureShader;
+	GameEngine::Ref<GameEngine::Shader> m_flatColorShader;
 	GameEngine::Ref<GameEngine::VertexArray> m_SquareVA;
 
 	GameEngine::Ref<GameEngine::Texture2D> m_Texture, m_TransparentTexture;
