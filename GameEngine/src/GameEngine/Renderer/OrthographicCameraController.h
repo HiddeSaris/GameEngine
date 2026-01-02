@@ -24,7 +24,7 @@ namespace GameEngine {
 		void SetZoomLevel(float zoomlevel) { m_ZoomLevel = zoomlevel; }
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
-		bool OnWindowResize(WindowResizeEvent& e);
+		bool OnWindowResized(WindowResizeEvent& e);
 	private:
 		float m_AspectRatio;
 		float m_ZoomLevel = 1.0f;

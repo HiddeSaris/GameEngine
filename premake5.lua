@@ -81,7 +81,6 @@ project "GameEngine"
 
 		defines
 		{
-			"GE_PLATFORM_WINDOWS",
 			"GLFW_INCLUDE_NONE"
 		}
 
@@ -139,11 +138,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		systemversion "latest"
-
-		defines
-		{
-			"GE_PLATFORM_WINDOWS"
-		}
 
 	filter "configurations:Debug"
 		defines "GE_DEBUG"

@@ -142,7 +142,9 @@ namespace GameEngine {
 			glDeleteProgram(program);
 
 			for (auto id : glShaderIDs)
+			{
 				glDeleteShader(id);
+			}
 
 			GE_CORE_ASSERT(false, "Shader Linking failure!");
 			GE_CORE_ERROR("{0}", infoLog.data());
@@ -150,7 +152,10 @@ namespace GameEngine {
 		}
 
 		for (auto id : glShaderIDs)
+		{
 			glDetachShader(program, id);
+			glDeleteShader(id);
+		}
 
 		m_RendererID = program;
 	}
