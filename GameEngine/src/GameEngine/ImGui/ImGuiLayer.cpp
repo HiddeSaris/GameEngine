@@ -1,6 +1,6 @@
 #include "gepch.h"
 #include "ImGuiLayer.h"
-#include "GameEngine/Core.h"
+#include "GameEngine/Core/Core.h"
 
 #include "imgui.h"
 
@@ -8,7 +8,7 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-#include "GameEngine/Application.h"
+#include "GameEngine/Core/Application.h"
 
 // TEMPORARY
 #include <glfw/glfw3.h>

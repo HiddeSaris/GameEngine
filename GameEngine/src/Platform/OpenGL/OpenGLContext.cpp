@@ -1,7 +1,7 @@
 #include "gepch.h"
 #include "OpenGLContext.h"
 
-#include "GameEngine/Core.h"
+#include "GameEngine/Core/Core.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>

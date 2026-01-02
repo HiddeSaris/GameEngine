@@ -1,7 +1,7 @@
 #include "gepch.h"
 #include "WindowsWindow.h"
 
-#include "GameEngine/Log.h"
+#include "GameEngine/Core/Log.h"
 
 #include "GameEngine/Events/ApplicationEvent.h"
 #include "GameEngine/Events/MouseEvent.h"

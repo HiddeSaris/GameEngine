@@ -2,7 +2,7 @@
 #include "WindowsInput.h"
 
 #include "glfw/glfw3.h"
-#include "GameEngine/Application.h"
+#include "GameEngine/Core/Application.h"
 
 namespace GameEngine {
 
