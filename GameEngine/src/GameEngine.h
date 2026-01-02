@@ -11,13 +11,9 @@
 #include "GameEngine/Input.h"
 #include "GameEngine/KeyCodes.h"
 #include "GameEngine/MouseButtonCodes.h"
+#include "GameEngine/OrthographicCameraController.h"
 
 #include "GameEngine/ImGui/ImGuiLayer.h"
-
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include "imgui/imgui.h"
 
 // -----Renderer-------------------
 #include "GameEngine/Renderer/Renderer.h"
