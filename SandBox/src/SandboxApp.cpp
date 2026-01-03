@@ -1,4 +1,5 @@
 #include <GameEngine.h>
+#include <GameEngine/Core/EntryPoint.h>
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
@@ -7,13 +8,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Sandbox2D.h"
+
 class ExampleLayer : public GameEngine::Layer
 {
 public:
 	ExampleLayer()
 		: Layer("Example"), m_CameraController(16.0f / 9.0f)
 	{
-		m_VertexArray.reset(GameEngine::VertexArray::Create());
+		m_VertexArray = GameEngine::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.6f, -0.7f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
@@ -22,7 +25,7 @@ public:
 		};
 
 		GameEngine::Ref<GameEngine::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(GameEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = GameEngine::VertexBuffer::Create(vertices, sizeof(vertices));
 		GameEngine::BufferLayout layout = {
 			{ GameEngine::ShaderDataType::Float3, "a_Position" },
 			{ GameEngine::ShaderDataType::Float4, "a_Color" }
@@ -33,11 +36,11 @@ public:
 
 		uint32_t indices[3] = { 0, 1, 2 };
 		GameEngine::Ref<GameEngine::IndexBuffer> indexBuffer;
-		indexBuffer.reset(GameEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBuffer = GameEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 
-		m_SquareVA.reset(GameEngine::VertexArray::Create());
+		m_SquareVA = GameEngine::VertexArray::Create();
 
 		float squareVertices[5 * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -47,7 +50,7 @@ public:
 		};
 
 		GameEngine::Ref<GameEngine::VertexBuffer> squareVB;
-		squareVB.reset(GameEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB = GameEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVB->SetLayout({
 			{ GameEngine::ShaderDataType::Float3, "a_Position" },
 			{ GameEngine::ShaderDataType::Float2, "a_TexCoord" }
@@ -56,7 +59,7 @@ public:
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		GameEngine::Ref<GameEngine::IndexBuffer> squareIB;
-		squareIB.reset(GameEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		squareIB = GameEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(
@@ -129,7 +132,7 @@ public:
 			}
 		)";
 
-		m_flatColorShader = GameEngine::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
+		m_FlatColorShader = GameEngine::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
@@ -152,8 +155,8 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_flatColorShader)->Bind();
-		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_flatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_FlatColorShader)->Bind();
+		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 
 		for (int y = 0; y < 20; y++)
@@ -162,7 +165,7 @@ public:
 			{
 				glm::vec3 pos(x * 0.105f, y * 0.105f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				GameEngine::Renderer::Submit(m_flatColorShader, m_SquareVA, transform);
+				GameEngine::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 			}
 		}
 		
@@ -178,7 +181,7 @@ public:
 		GameEngine::Renderer::EndScene();
 	}
 
-	virtual void OnImGuiRender()
+	virtual void OnImGuiRender() override
 	{
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
@@ -194,7 +197,7 @@ private:
 	GameEngine::Ref<GameEngine::Shader> m_Shader;
 	GameEngine::Ref<GameEngine::VertexArray> m_VertexArray;
 
-	GameEngine::Ref<GameEngine::Shader> m_flatColorShader;
+	GameEngine::Ref<GameEngine::Shader> m_FlatColorShader;
 	GameEngine::Ref<GameEngine::VertexArray> m_SquareVA;
 
 	GameEngine::Ref<GameEngine::Texture2D> m_Texture, m_TransparentTexture;
@@ -208,7 +211,8 @@ class Sandbox : public GameEngine::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox()
