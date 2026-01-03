@@ -2,6 +2,8 @@
 
 #include "OrthographicCamera.h"
 
+#include "Texture.h"
+
 namespace GameEngine {
 
 	class Renderer2D
@@ -14,8 +16,10 @@ namespace GameEngine {
 		static void EndScene();
 
 		// Primitives
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, float rotation = 0, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation = 0, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f }, float rotation = 0);
+		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f }, float rotation = 0);
+		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f }, float rotation = 0);
+		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color = { 1.0f, 1.0f, 1.0f, 1.0f }, float rotation = 0);
 	};
 
 }

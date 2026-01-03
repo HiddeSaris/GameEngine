@@ -19,6 +19,8 @@ private:
 	GameEngine::Ref<GameEngine::VertexArray> m_SquareVA;
 	GameEngine::Ref<GameEngine::Shader> m_FlatColorShader;
 
+	GameEngine::Ref<GameEngine::Texture2D> m_Texture;
+
 	float m_Rotation = 0.0f;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
