@@ -12,8 +12,8 @@ namespace GameEngine {
 	struct Renderer2DStorage
 	{
 		Ref<VertexArray> QuadVertexArray;
-		Ref<Shader> FlatColorShader;
 		Ref<Shader> TextureShader;
+		Ref<Texture2D> WhiteTexture;
 	};
 
 	static Renderer2DStorage* s_Data;
@@ -44,8 +44,10 @@ namespace GameEngine {
 		squareIB = IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		s_Data->QuadVertexArray->SetIndexBuffer(squareIB);
 
+		s_Data->WhiteTexture = Texture2D::Create(1, 1);
+		static uint32_t whiteTextureData = 0xffffffff;
+		s_Data->WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
-		s_Data->FlatColorShader = Shader::Create("assets/shaders/FlatColor.glsl");
 		s_Data->TextureShader = Shader::Create("assets/shaders/Texture.glsl");
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetInt("u_Texture", 0);
@@ -58,9 +60,6 @@ namespace GameEngine {
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		s_Data->FlatColorShader->Bind();
-		s_Data->FlatColorShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
-
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
@@ -77,15 +76,15 @@ namespace GameEngine {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color /*= { 1.0f, 1.0f, 1.0f, 1.0f }*/, float rotation /*= 0*/)
 	{
-		s_Data->FlatColorShader->Bind();
-		s_Data->FlatColorShader->SetFloat4("u_Color", color);
+		s_Data->TextureShader->SetFloat4("u_Color", color);
+		s_Data->WhiteTexture->Bind();
 
 		glm::mat4 transform;
 		transform = glm::translate(glm::mat4(1.0f), position);
 		transform *= glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 		transform *= glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		s_Data->FlatColorShader->SetMat4("u_Transform", transform);
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
 
 
 		s_Data->QuadVertexArray->Bind();
@@ -99,9 +98,6 @@ namespace GameEngine {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color /*= { 1.0f, 1.0f, 1.0f, 1.0f }*/, float rotation /*= 0*/)
 	{
-		s_Data->TextureShader->Bind();
-		//s_Data->FlatColorShader->SetFloat4("u_Color", color);
-
 		glm::mat4 transform;
 		transform = glm::translate(glm::mat4(1.0f), position);
 		transform *= glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
