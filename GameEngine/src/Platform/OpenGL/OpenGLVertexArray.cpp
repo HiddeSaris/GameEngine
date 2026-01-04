@@ -28,6 +28,8 @@ namespace GameEngine {
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
+		GE_PROFILE_FUNCTION();
+
 		glCreateVertexArrays(1, &m_RendererID);
 	}
 

@@ -11,22 +11,21 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	GE_PROFILE_FUNCTION();
+
 	m_Texture = GameEngine::Texture2D::Create("assets/textures/picture.png");
 }
 
 void Sandbox2D::OnDetach()
 {
-
+	GE_PROFILE_FUNCTION();
 }
 
 void Sandbox2D::OnUpdate(GameEngine::Timestep dt)
 {
 	GE_PROFILE_FUNCTION();
 
-	{
-		GE_PROFILE_SCOPE("m_CameraController::OnUpdate");
-		m_CameraController.OnUpdate(dt);
-	}
+	m_CameraController.OnUpdate(dt);
 
 	{
 		GE_PROFILE_SCOPE("Renderer Prep");
